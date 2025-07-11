@@ -152,18 +152,17 @@ public class BattleState : IPlayerState<BattleState, BattleState.SubState>
                 Player.Gold += random.Next(Monster.Gold, Monster.Gold * 2);
                 Player.Experience += random.Next(Monster.Experience, (int)(Monster.Experience * 1.5f));
                 if (Player.LevelUp())
-                    StateStack.Push(SubState.OnLevelUpText);
+                {
+                    Manager.UI.Battle.OnLevelUpText.FormatMessage(origianlMsg => { return string.Format(origianlMsg, Player.Level); });
+                    Manager.UI.Battle.OnLevelUpText.DisplayMessage();
+                }    
                 Player.ChangeState<IdleState, IdleState.SubState>();
                 break;
             case SubState.FailedOutOfRangeText:
                 Manager.UI.ETC.FailedOutOfRangeText.DisplayMessage();
                 break;
             case SubState.OnLevelUpText:
-                Manager.UI.Battle.OnLevelUpText.FormatMessage(origianlMsg => { return string.Format(origianlMsg, Player.Level); });
-                Manager.UI.Battle.OnLevelUpText.DisplayMessage();
-                Player.ChangeState<IdleState, IdleState.SubState>();
                 break;
-
         }
     }
 }

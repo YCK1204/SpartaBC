@@ -169,7 +169,7 @@ namespace TextRPG.UI
             Console.SetCursorPosition(statusX + 1, statusY + 6);
             Console.Write("직업:" + job.PadLeft(valueWidth - 2));
             Console.SetCursorPosition(statusX + 1, statusY + 7);
-            Console.Write("경험치:" + ("100/100").PadLeft(valueWidth - 2));
+            Console.Write($"경험치: {Player.Experience}/{Player.Level*100}");
         }
 
         private void DrawCurrentLocation()
