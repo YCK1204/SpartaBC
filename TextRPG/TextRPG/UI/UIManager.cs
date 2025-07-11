@@ -678,10 +678,12 @@ namespace TextRPG.UI
                 string f = "";
 
                 SelectCharacter.SelectCharacterText.ChoiceCount = Manager.Data.PlayerCharacters.Count;
-                foreach (var characterInfo in Manager.Data.PlayerCharacters)
+                var list = Manager.Data.PlayerCharacters.ToList();
+                for (int i = 0; i < list.Count; i++)
                 {
+                    var characterInfo = list[i];
                     f += string.Format(formatHandler,
-                        characterInfo.Key,
+                        i + 1,
                         characterInfo.Value.Status.Level,
                         characterInfo.Value.Status.DisplayName,
                         characterInfo.Value.Status.JobName);

@@ -132,7 +132,8 @@ namespace TextRPG.Managers
         public void AddPlayerCharacterAndSave(CharacterStatus status)
         {
             PlayerCaracter character = new PlayerCaracter();
-            character.CharacterId = PlayerCharacters.Count + 1;
+            int id = GenerateNewCharacterId();
+            character.CharacterId = id;
             character.Status = status;
             // 새 캐릭터에게 빈 인벤토리 초기화
             character.Inventory = new Inventory
@@ -151,10 +152,16 @@ namespace TextRPG.Managers
                 Sword = null,
                 Shoes = null
             };
-            PlayerCharacters.Add(character.CharacterId, character);
+            PlayerCharacters.Add(id, character);
             SaveData();
         }
 
+        public int GenerateNewCharacterId()
+        {
+            if (PlayerCharacters.Count == 0)
+                return 1; // 첫 번째 캐릭터 ID는 1
+            return PlayerCharacters.Last().Value.CharacterId + 1;
+        }
         // 기존 캐릭터들의 인벤토리 및 장비 초기화 (JSON에 정보가 없는 경우)
         public void InitializeInventoryForExistingCharacters()
         {

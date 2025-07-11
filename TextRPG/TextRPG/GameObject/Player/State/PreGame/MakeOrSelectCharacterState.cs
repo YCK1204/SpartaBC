@@ -160,6 +160,7 @@ public class MakeOrSelectCharacterState : IPlayerState<MakeOrSelectCharacterStat
                 Manager.UI.SelectCharacter.SelectCharacterText.DisplayMessage();
                 InputKey = Manager.UI.GetInputAsKeyInfo();
                 StateStack.Push(State);
+                var list = Manager.Data.PlayerCharacters.ToList();
                 switch (InputKey)
                 {
                     case ConsoleKey.D0:
@@ -168,16 +169,17 @@ public class MakeOrSelectCharacterState : IPlayerState<MakeOrSelectCharacterStat
                         return;
                     default:
                         InputInt = InputKey - ConsoleKey.D0;
-                        if (Manager.Data.PlayerCharacters.TryGetValue(InputInt, out PlayerCaracter c))
+                        if (InputInt < 0 || InputInt > list.Count)
                         {
-                            Player.ID = InputInt;
-                            Player.Status = Manager.Data.PlayerCharacters[InputInt].Status;
-                            Player.OnSet();
-                            Player.ChangeState<IdleState, IdleState.SubState>();
-                            Player.Position = new Position(15, 9);
-                        }
-                        else
                             StateStack.Push(SubState.FailedOutOfRange);
+                            return;
+                        }
+                        var c = list[InputInt - 1];
+                        Player.ID = c.Value.CharacterId;
+                        Player.Status = c.Value.Status;
+                        Player.OnSet();
+                        Player.ChangeState<IdleState, IdleState.SubState>();
+                        Player.Position = new Position(15, 9);
                         break;
                 }
                 break;
