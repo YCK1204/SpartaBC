@@ -1,0 +1,64 @@
+{
+  "Characters": [
+    {
+      "CharacterStatus": {
+        "Id": 1,
+        "HP": 100,
+        "JobName": "검사",
+        "DisplayName": "응애",
+        "AttackPower": 15,
+        "Armor": 5,
+        "Level": 3,
+        "Experience": 150,
+        "Gold": 10000,
+        "MaxHP": 200,
+        "CharacterSummary": null,
+        "Type": 0
+      },
+      "CharacterId": 1,
+      "Inventory": {
+        "Helmets": [],
+        "Armors": [],
+        "Swords": [],
+        "Shoes": [],
+        "Potions": []
+      },
+      "Equipment": {
+        "Helmet": null,
+        "Armor": null,
+        "Sword": null,
+        "Shoes": null
+      }
+    },
+    {
+      "CharacterStatus": {
+        "Id": 2,
+        "HP": 135,
+        "JobName": "마검사",
+        "DisplayName": "zl존검사",
+        "AttackPower": 18,
+        "Armor": 6,
+        "Level": 3,
+        "Experience": 150,
+        "Gold": 500000,
+        "MaxHP": 500,
+        "CharacterSummary": null,
+        "Type": 0
+      },
+      "CharacterId": 2,
+      "Inventory": {
+        "Helmets": [],
+        "Armors": [],
+        "Swords": [],
+        "Shoes": [],
+        "Potions": []
+      },
+      "Equipment": {
+        "Helmet": null,
+        "Armor": null,
+        "Sword": null,
+        "Shoes": null
+      }
+    }
+  ]
+}

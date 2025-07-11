@@ -1,0 +1,5 @@
+*.vs
+*.claude
+*CLAUDE.md*
+*bin*
+*obj*

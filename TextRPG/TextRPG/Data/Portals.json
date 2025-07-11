@@ -1,0 +1,118 @@
+{
+  "portals": [
+    {
+      "Town": [
+        {
+          "spawn_pos": [ 11, 1 ],
+          "pos": [ 11, 0 ],
+          "to_map": "Field_001",
+          "to_id": 0,
+          "name": "Town"
+        },
+        {
+          "spawn_pos": [ 27, 9 ],
+          "pos": [ 28, 9 ],
+          "to_map": "Field_004",
+          "to_id": 0,
+          "name": "Town"
+        }
+      ],
+      "Field_001": [
+        {
+          "spawn_pos": [ 10, 12 ],
+          "pos": [ 10, 13 ],
+          "to_map": "Town",
+          "to_id": 0,
+          "name": "Field_001"
+        },
+        {
+          "spawn_pos": [ 19, 7 ],
+          "pos": [ 20, 7 ],
+          "to_map": "Field_002",
+          "to_id": 0,
+          "name": "Field_001"
+        },
+        {
+          "spawn_pos": [ 10, 1 ],
+          "pos": [ 10, 0 ],
+          "to_map": "Field_003",
+          "to_id": 0,
+          "name": "Field_001"
+        }
+      ],
+      "Field_002": [
+        {
+          "spawn_pos": [ 1, 6 ],
+          "pos": [ 0, 6 ],
+          "to_map": "Field_001",
+          "to_id": 1,
+          "name": "Field_002"
+        },
+        {
+          "spawn_pos": [ 9, 12 ],
+          "pos": [ 9, 13 ],
+          "to_map": "Field_004",
+          "to_id": 1,
+          "name": "Field_002"
+        }
+      ],
+      "Field_003": [
+        {
+          "spawn_pos": [ 10, 13 ],
+          "pos": [ 10, 14 ],
+          "to_map": "Field_001",
+          "to_id": 2,
+          "name": "Field_003"
+        }
+      ],
+      "Field_004": [
+        {
+          "spawn_pos": [ 1, 6 ],
+          "pos": [ 0, 6 ],
+          "to_map": "Town",
+          "to_id": 1,
+          "name": "Field_004"
+        },
+        {
+          "spawn_pos": [ 10, 1 ],
+          "pos": [ 10, 0 ],
+          "to_map": "Field_002",
+          "to_id": 1,
+          "name": "Field_004"
+        },
+        {
+          "spawn_pos": [ 23, 6 ],
+          "pos": [ 24, 6 ],
+          "to_map": "Field_005",
+          "to_id": 0,
+          "name": "Field_004"
+        },
+        {
+          "spawn_pos": [ 19, 14 ],
+          "pos": [ 19, 15 ],
+          "to_map": "Field_006",
+          "to_id": 0,
+          "name": "Field_004"
+        }
+      ],
+      "Field_005": [
+        {
+          "spawn_pos": [ 1, 6 ],
+          "pos": [ 0, 6 ],
+          "to_map": "Field_004",
+          "to_id": 2,
+          "name": "Field_005"
+        }
+      ],
+      "Field_006": [
+        {
+          "spawn_pos": [ 16, 1 ],
+          "pos": [ 16, 0 ],
+          "to_map": "Field_004",
+          "to_id": 3,
+          "name": "Field_006"
+        }
+      ]
+    }
+  ]
+}
