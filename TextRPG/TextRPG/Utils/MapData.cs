@@ -23,6 +23,7 @@ namespace TextRPG.Utils
         public int Y { get; set; }
         public bool IsWalkable { get; set; }
         public Dictionary<string, object> Properties { get; set; }
+        public Monster Monster { get; set; }
 
         public MapTile(int x, int y, MapTileType type)
         {
@@ -88,6 +89,12 @@ namespace TextRPG.Utils
                 return (int)Properties["monster_id"];
             }
             return -1;
+        }
+
+        // 몬스터가 있는지 확인
+        public bool HasMonster()
+        {
+            return Type == MapTileType.Monster && Monster != null;
         }
     }
 

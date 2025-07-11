@@ -23,7 +23,6 @@ namespace TextRPG.Managers
         {
             Data.LoadData();
             UI.Init();
-            Game.Init();
             Map.Init();
         }
     }

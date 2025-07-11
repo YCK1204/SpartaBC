@@ -33,15 +33,15 @@
     {
       "CharacterStatus": {
         "Id": 2,
-        "HP": 135,
+        "HP": 105,
         "JobName": "마검사",
         "DisplayName": "zl존검사",
-        "AttackPower": 18,
-        "Armor": 6,
+        "AttackPower": 21,
+        "Armor": 7,
         "Level": 3,
         "Experience": 150,
         "Gold": 500000,
-        "MaxHP": 500,
+        "MaxHP": 130,
         "CharacterSummary": null,
         "Type": 0
       },

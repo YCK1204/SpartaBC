@@ -21,7 +21,17 @@ namespace TextRPG.UI
                 DrawPlayerStatus();
                 DrawCurrentLocation();
                 DrawInfoPanel();
-                DrawMap();
+                
+                // 전투 상태가 아닐 때만 맵 표시
+                if (!IsInBattle())
+                {
+                    DrawMap();
+                }
+                else
+                {
+                    // 전투 상태일 때 몬스터 ASCII 아트를 중앙에 표시
+                    DrawBattleScreen();
+                }
             }
             DrawInputFrame(); // 항상 입력 프레임 표시
         }
@@ -36,7 +46,6 @@ namespace TextRPG.UI
             catch (Exception)
             {
                 // 콘솔 크기 설정 실패 시 기본 크기로 조정
-                Console.WriteLine("콘솔 창 크기를 조정할 수 없습니다. 기본 크기를 사용합니다.");
             }
             
             Console.Clear();
@@ -258,17 +267,15 @@ namespace TextRPG.UI
             int infoPanelWidth, infoPanelHeight;
             string currentLocation = GetCurrentLocationName();
 
+            // 기본: 중간 크기 (필드 맵에서도 조작법 표시)
+            infoPanelWidth = 16;
+            infoPanelHeight = 15; // I(인벤토리) 키 추가로 높이 증가
+
             if (IsInBattle())
             {
-                // 전투: 큰 프레임 (몬스터 정보용)
-                infoPanelWidth = 20;
-                infoPanelHeight = 10;
-            }
-            else
-            {
-                // 기본: 중간 크기 (필드 맵에서도 조작법 표시)
-                infoPanelWidth = 16;
-                infoPanelHeight = 15; // I(인벤토리) 키 추가로 높이 증가
+                // 전투 중인 경우: 몬스터 정보 표시
+                infoPanelWidth = 20; // 몬스터 정보가 더 많으므로 넓게
+                infoPanelHeight = 10; // 높이는 줄임
             }
 
             int infoPanelX = 2;
@@ -360,11 +367,12 @@ namespace TextRPG.UI
         private void DisplayMonsterInfo(int frameX, int frameY, int frameWidth, int frameHeight)
         {
             // 몬스터 정보 (예시 - 나중에 실제 몬스터 데이터로 대체)
-            string monsterName = "고블린";
-            int monsterHP = 80;
-            int monsterMaxHP = 100;
-            int monsterAttack = 15;
-            int monsterDefense = 5;
+            Monster monster = Player.Monster;
+            int level = monster.Level;
+            string monsterName = monster.Name;
+            int monsterHP = monster.HP;
+            int monsterAttack = monster.Power;
+            int monsterDefense = monster.Armor;
 
             // 제목
             Console.SetCursorPosition(frameX + 2, frameY + 1);
@@ -374,55 +382,105 @@ namespace TextRPG.UI
 
             // 몬스터 이름
             Console.SetCursorPosition(frameX + 2, frameY + 3);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"Lv. {level}");
+            Console.SetCursorPosition(frameX + 2, frameY + 4);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write($"이름: {monsterName}");
             Console.ResetColor();
 
             // 몬스터 스탯
-            Console.SetCursorPosition(frameX + 2, frameY + 5);
-            Console.Write($"체력: {monsterHP}/{monsterMaxHP}");
             Console.SetCursorPosition(frameX + 2, frameY + 6);
-            Console.Write($"공격: {monsterAttack}");
+            Console.Write($"체력: {monsterHP}");
             Console.SetCursorPosition(frameX + 2, frameY + 7);
-            Console.Write($"방어: {monsterDefense}");
-
-            // 전투 조작법
-            Console.SetCursorPosition(frameX + 2, frameY + 9);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("전투 조작");
-            Console.ResetColor();
-            Console.SetCursorPosition(frameX + 2, frameY + 10);
-            Console.Write("1: 공격  2: 방어");
-        }
-
-        private void DisplayGeneralInfo(int frameX, int frameY, int frameWidth, int frameHeight)
-        {
-            // 일반 정보 표시
-            Console.SetCursorPosition(frameX + 2, frameY + 1);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write("게임 정보");
-            Console.ResetColor();
-
-            Console.SetCursorPosition(frameX + 2, frameY + 3);
-            Console.Write("현재 위치에서");
-            Console.SetCursorPosition(frameX + 2, frameY + 4);
-            Console.Write("이용 가능한 정보가");
-            Console.SetCursorPosition(frameX + 2, frameY + 5);
-            Console.Write("없습니다.");
-
-            Console.SetCursorPosition(frameX + 2, frameY + 7);
-            Console.Write("도움말:");
+            Console.Write($"공격력: {monsterAttack}");
             Console.SetCursorPosition(frameX + 2, frameY + 8);
-            Console.Write("H : 도움말");
-            Console.SetCursorPosition(frameX + 2, frameY + 9);
-            Console.Write("Q : 종료");
+            Console.Write($"방어력: {monsterDefense}");
+            Console.ResetColor();
         }
+
 
         // 전투 중인지 확인하는 메서드 (나중에 실제 전투 상태로 대체)
         private bool IsInBattle()
         {
             // TODO: 실제 전투 상태 확인 로직
-            return false; // 임시로 false 반환
+            return Player.State == BattleState.Instance; // 임시로 false 반환
+        }
+
+        // 전투 화면 그리기
+        private void DrawBattleScreen()
+        {
+            // 임시로 고블린 몬스터 데이터를 사용 (나중에 실제 전투 중인 몬스터로 대체)
+            var monsterData = Manager.Data.GetMonsterData(Player.Monster.NameHide);
+            
+            if (monsterData.HasValue)
+            {
+                var monster = monsterData.Value;
+                
+                // ASCII 아트가 있는 경우 화면 중앙에 표시
+                if (monster.AsciiArt != null && monster.AsciiArt.Count > 0)
+                {
+                    // 화면 중앙 계산
+                    int artWidth = monster.AsciiArt.Max(line => line.Length);
+                    int artHeight = monster.AsciiArt.Count;
+                    
+                    int startX = (SCREEN_WIDTH - artWidth) / 2;
+                    int startY = (SCREEN_HEIGHT - artHeight) / 2;
+                    
+                    // ASCII 아트 출력
+                    for (int i = 0; i < monster.AsciiArt.Count; i++)
+                    {
+                        int lineX = startX;
+                        int lineY = startY + i;
+                        
+                        // 화면 범위 내에 있을 때만 출력
+                        if (lineY > 0 && lineY < SCREEN_HEIGHT - 1)
+                        {
+                            Console.SetCursorPosition(lineX, lineY);
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write(monster.AsciiArt[i]);
+                            Console.ResetColor();
+                        }
+                    }
+                    
+                    // 몬스터 이름을 ASCII 아트 아래에 표시
+                    string monsterName = $"[{monster.Name}]";
+                    int nameX = (SCREEN_WIDTH - monsterName.Length * 2) / 2; // 한글 고려
+                    int nameY = startY + artHeight + 1;
+                    
+                    if (nameY < SCREEN_HEIGHT - 3)
+                    {
+                        Console.SetCursorPosition(nameX, nameY);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(monsterName);
+                        Console.ResetColor();
+                    }
+                }
+                else
+                {
+                    // ASCII 아트가 없는 경우 기본 몬스터 표시
+                    string monsterDisplay = $"[{monster.Name}]";
+                    int displayX = (SCREEN_WIDTH - monsterDisplay.Length * 2) / 2;
+                    int displayY = SCREEN_HEIGHT / 2;
+                    
+                    Console.SetCursorPosition(displayX, displayY);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(monsterDisplay);
+                    Console.ResetColor();
+                }
+            }
+            else
+            {
+                // 몬스터 데이터가 없는 경우 기본 전투 화면
+                string battleText = "[전투 중]";
+                int textX = (SCREEN_WIDTH - battleText.Length * 2) / 2;
+                int textY = SCREEN_HEIGHT / 2;
+                
+                Console.SetCursorPosition(textX, textY);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(battleText);
+                Console.ResetColor();
+            }
         }
 
         private void DrawMap()
@@ -609,7 +667,7 @@ namespace TextRPG.UI
                         characterStatus.Key,
                         characterStatus.Value.JobName);
                 }
-                if (f[f.Length - 1] == '\n')
+                if (f.Length > 0 && f[f.Length - 1] == '\n')
                     f = f.Substring(0, f.Length - 1); // 마지막 줄바꿈 제거
                 return string.Format(originalMsg, f);
             });
@@ -628,7 +686,7 @@ namespace TextRPG.UI
                         characterInfo.Value.Status.DisplayName,
                         characterInfo.Value.Status.JobName);
                 }
-                if (f[f.Length - 1] == '\n')
+                if (f.Length > 0 && f[f.Length - 1] == '\n')
                     f = f.Substring(0, f.Length - 1);
                 return string.Format(originalMsg, f);
             });

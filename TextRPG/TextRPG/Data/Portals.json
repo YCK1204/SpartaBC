@@ -1,116 +1,116 @@
 {
   "portals": [
     {
-      "Town": [
+      "떡잎마을": [
         {
           "spawn_pos": [ 11, 1 ],
           "pos": [ 11, 0 ],
-          "to_map": "Field_001",
+          "to_map": "도라에몽의 쉼터1",
           "to_id": 0,
-          "name": "Town"
+          "name": "떡잎마을"
         },
         {
           "spawn_pos": [ 27, 9 ],
           "pos": [ 28, 9 ],
-          "to_map": "Field_004",
+          "to_map": "도라에몽의 쉼터2",
           "to_id": 0,
-          "name": "Town"
+          "name": "떡잎마을"
         }
       ],
-      "Field_001": [
+      "도라에몽의 쉼터1": [
         {
           "spawn_pos": [ 10, 12 ],
           "pos": [ 10, 13 ],
-          "to_map": "Town",
+          "to_map": "떡잎마을",
           "to_id": 0,
-          "name": "Field_001"
+          "name": "도라에몽의 쉼터1"
         },
         {
           "spawn_pos": [ 19, 7 ],
           "pos": [ 20, 7 ],
-          "to_map": "Field_002",
+          "to_map": "둘리의 팥빵 제작소",
           "to_id": 0,
-          "name": "Field_001"
+          "name": "도라에몽의 쉼터1"
         },
         {
           "spawn_pos": [ 10, 1 ],
           "pos": [ 10, 0 ],
-          "to_map": "Field_003",
+          "to_map": "고길동의 수련장",
           "to_id": 0,
-          "name": "Field_001"
+          "name": "도라에몽의 쉼터1"
         }
       ],
-      "Field_002": [
+      "둘리의 팥빵 제작소": [
         {
           "spawn_pos": [ 1, 6 ],
           "pos": [ 0, 6 ],
-          "to_map": "Field_001",
+          "to_map": "도라에몽의 쉼터1",
           "to_id": 1,
-          "name": "Field_002"
+          "name": "둘리의 팥빵 제작소"
         },
         {
           "spawn_pos": [ 9, 12 ],
           "pos": [ 9, 13 ],
-          "to_map": "Field_004",
+          "to_map": "도라에몽의 쉼터2",
           "to_id": 1,
-          "name": "Field_002"
+          "name": "둘리의 팥빵 제작소"
         }
       ],
-      "Field_003": [
+      "고길동의 수련장": [
         {
           "spawn_pos": [ 10, 13 ],
           "pos": [ 10, 14 ],
-          "to_map": "Field_001",
+          "to_map": "도라에몽의 쉼터1",
           "to_id": 2,
-          "name": "Field_003"
+          "name": "고길동의 수련장"
         }
       ],
-      "Field_004": [
+      "도라에몽의 쉼터2": [
         {
           "spawn_pos": [ 1, 6 ],
           "pos": [ 0, 6 ],
-          "to_map": "Town",
+          "to_map": "떡잎마을",
           "to_id": 1,
-          "name": "Field_004"
+          "name": "도라에몽의 쉼터2"
         },
         {
           "spawn_pos": [ 10, 1 ],
           "pos": [ 10, 0 ],
-          "to_map": "Field_002",
+          "to_map": "둘리의 팥빵 제작소",
           "to_id": 1,
-          "name": "Field_004"
+          "name": "도라에몽의 쉼터2"
         },
         {
           "spawn_pos": [ 23, 6 ],
           "pos": [ 24, 6 ],
-          "to_map": "Field_005",
+          "to_map": "도우너와 둘리의 은밀한 공간",
           "to_id": 0,
-          "name": "Field_004"
+          "name": "도라에몽의 쉼터2"
         },
         {
           "spawn_pos": [ 19, 14 ],
           "pos": [ 19, 15 ],
-          "to_map": "Field_006",
+          "to_map": "페페의 컴퓨터실",
           "to_id": 0,
-          "name": "Field_004"
+          "name": "도라에몽의 쉼터2"
         }
       ],
-      "Field_005": [
+      "도우너와 둘리의 은밀한 공간": [
         {
           "spawn_pos": [ 1, 6 ],
           "pos": [ 0, 6 ],
-          "to_map": "Field_004",
+          "to_map": "도라에몽의 쉼터2",
           "to_id": 2,
-          "name": "Field_005"
+          "name": "도우너와 둘리의 은밀한 공간"
         }
       ],
-      "Field_006": [
+      "페페의 컴퓨터실": [
         {
           "spawn_pos": [ 16, 1 ],
           "pos": [ 16, 0 ],
-          "to_map": "Field_004",
+          "to_map": "도라에몽의 쉼터2",
           "to_id": 3,
-          "name": "Field_006"
+          "name": "페페의 컴퓨터실"
         }
       ]
     }

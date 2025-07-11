@@ -10,10 +10,6 @@ namespace TextRPG.Managers
     public class GameManager
     {
         Dictionary<PlayerState, Action> _stateActions = new Dictionary<PlayerState, Action>();
-        public void Init()
-        {
-
-        }
         public void Start()
         {
             while (Player.State != ExitState.Instance)

@@ -2,6 +2,7 @@
   "Monsters": {
     "Dooly": {
       "Name": "사기꾼 둘리",
+      "NameHide": "Dooly",
       "AttackMsgs": [
         "호잇! 하잇! 흐에!",
         "희동이 호로자식 되는거야 알지?\n처신 잘하라고",
@@ -19,21 +20,24 @@
     },
     "GoGildong": {
       "Name": "고길동",
+      "NameHide": "GoGildong",
       "AttackMsgs": [
         "아아.. 묵직하고도 서늘한 이 감각...\n2년만 이구만",
         "호로자식 같으니!",
-        "????????!"
+        "하세기! 소리에게돈!"
       ],
       "Level": 500,
       "HP": 500000,
       "MaxHP": 500000,
       "Armor": 150,
-      "Power": 500,
+      "Power": 3333,
       "Experience": 300000,
-      "Gold": 300000
+      "Gold": 300000,
+      "AsciiPath": "Data/AsciiArt/GoGildong.txt"
     },
     "Douna": {
-      "Name": "?????",
+      "Name": "도우너",
+      "NameHide": "Douna",
       "AttackMsgs": [
         "깐따삐아!",
         "지구 애완동물은 하나같이 왜 이렇게 버릇이 없어?",
@@ -45,10 +49,12 @@
       "Armor": 55,
       "Power": 120,
       "Experience": 1500,
-      "Gold": 1500
+      "Gold": 1500,
+      "AsciiPath": "Data/AsciiArt/Douna.txt"
     },
     "PePe": {
       "Name": "페페",
+      "NameHide": "PePe",
       "AttackMsgs": [
         "으이",
         "어으... 에으으..",
@@ -60,10 +66,12 @@
       "Armor": 100,
       "Power": 250,
       "Experience": 5000,
-      "Gold": 5000
+      "Gold": 5000,
+      "AsciiPath": "Data/AsciiArt/PePe.txt"
     },
     "Doraemon": {
       "Name": "도라에몽",
+      "NameHide": "Doraemon",
       "AttackMsgs": [
         "우리나라가 네 수준으로 떨어진다면 이 세상은 끝이야!",
         "내맘대로 전차포!",
@@ -72,10 +80,11 @@
       "Level": 1,
       "HP": 300,
       "MaxHP": 300,
-      "Armor": 15,
-      "Power": 55,
+      "Armor": 35,
+      "Power": 15,
       "Experience": 250,
-      "Gold": 250
+      "Gold": 250,
+      "AsciiPath": "Data/AsciiArt/Doraemon.txt"
     }
   }
 }

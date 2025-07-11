@@ -66,8 +66,8 @@ namespace TextRPG.Managers
             // 기존 캐릭터들의 인벤토리 초기화
             InitializeInventoryForExistingCharacters();
 
-            string monsterJson = File.ReadAllText($"{_dataPath}/{_monstersPath}");
-            Monsters = JsonConvert.DeserializeObject<Monsters>(monsterJson).MonsterDict;
+            // 몬스터 데이터 로드 (ASCII 아트 포함)
+            LoadMonsterData();
         }
         public void SaveData()
         {
@@ -113,12 +113,6 @@ namespace TextRPG.Managers
                 }
             }
 
-            Console.WriteLine($"아이템 분류 완료:");
-            Console.WriteLine($"- 헬멧: {Helmets.Count}개");
-            Console.WriteLine($"- 갑옷: {Armors.Count}개");
-            Console.WriteLine($"- 신발: {Shoes.Count}개");
-            Console.WriteLine($"- 검: {Swords.Count}개");
-            Console.WriteLine($"- 포션: {Potions.Count}개");
         }
 
         // 특정 타입의 아이템 리스트 가져오기
@@ -218,11 +212,47 @@ namespace TextRPG.Managers
             if (needsSave)
             {
                 SaveData();
-                Console.WriteLine("기존 캐릭터들의 인벤토리와 장비가 초기화되었습니다.");
             }
         }
 
-        // 몬스터 데이터 가져오기
+        // 몬스터 데이터 로드 (ASCII 아트 포함)
+        private void LoadMonsterData()
+        {
+            try
+            {
+                string monsterJson = File.ReadAllText($"{_dataPath}/{_monstersPath}");
+                var monstersData = JsonConvert.DeserializeObject<Monsters>(monsterJson);
+                
+                if (monstersData.MonsterDict != null)
+                {
+                    // 몬스터 데이터를 로드하고 ASCII 아트도 함께 로드
+                    var updatedMonsters = new Dictionary<string, MonsterData>();
+                    
+                    foreach (var kvp in monstersData.MonsterDict)
+                    {
+                        var monsterData = kvp.Value;
+                        
+                        // ASCII 아트 로드
+                        monsterData.LoadAsciiArt();
+                        
+                        updatedMonsters[kvp.Key] = monsterData;
+                    }
+                    
+                    Monsters = updatedMonsters;
+                    
+                    foreach (var monster in Monsters)
+                    {
+                        int asciiLines = monster.Value.AsciiArt?.Count ?? 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Monsters = new Dictionary<string, MonsterData>();
+            }
+        }
+
+        // 몬스터 데이터 가져오기 (ASCII 아트 포함)
         public MonsterData? GetMonsterData(string monsterKey)
         {
             if (Monsters.ContainsKey(monsterKey))

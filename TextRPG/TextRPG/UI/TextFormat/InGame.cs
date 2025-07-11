@@ -13,6 +13,7 @@ namespace TextRPG.UI
         public T_Idle Idle = new T_Idle();
         public T_Shop Shop = new T_Shop();
         public T_Inventory Inventory = new T_Inventory();
+        public T_Battle Battle = new T_Battle();
         public class T_Tutorial
         {
             public UILogHandler AskShowTutorialText = new UILogHandler(UIMsgType.PROMPT_FOR_INPUT, _askShowTutorialText, 2);
@@ -171,6 +172,48 @@ namespace TextRPG.UI
 @"Gold가 부족합니다.";
             const string _onPurchaseText =
 @"{0} 아이템을 구입하였습니다.";
+        }
+        public class T_Battle
+        {
+            public UILogHandler StartBattleText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _startBattleText);
+            public UILogHandler PlayerTurnText = new UILogHandler(UIMsgType.PROMPT_FOR_INPUT, _playerTurnText, 3);
+            public UILogHandler ReAskRunBattleText = new UILogHandler(UIMsgType.PROMPT_FOR_INPUT, _reAskRunBattleText, 2);
+            public UILogHandler PlayerAttackText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _playerAttackText);
+            public UILogHandler MonsterAttackText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _monsterAttackText);
+            public UILogHandler OnMonsterAttackText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _onMonsterAttackText);
+            public UILogHandler OnPlayerDeadText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _onPlayerDeadText);
+            public UILogHandler OnMonsterDeadText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _onMonsterDeadText);
+            public UILogHandler OnLevelUpText = new UILogHandler(UIMsgType.MSG_WITH_WAIT, _onLevelUpText);
+
+            const string _startBattleText =
+@"앗! 야생의 {0}가 나타났다!
+{0}은 인생이 너무 고달퍼서 몹시 사나운 상태입니다!
+어쩔 수 없이 상대를 해줘야 합니다!";
+            const string _playerTurnText =
+@"당신의 차례입니다. 무엇을 하시겠습니까?
+0. 도망친다.
+1. 공격한다.
+2. 방어한다.";
+            const string _reAskRunBattleText =
+@"도망칠 시 가지고있는 모든 Gold를 몬스터에게 줘야합니다.
+ㄹㅇ로 도망칠거에요?
+1. Run
+2. 계속한다.";
+            const string _playerAttackText =
+@"{0}에게 {1}만큼 피해를 입혔습니다!";
+            const string _monsterAttackText =
+@"{0}가 공격합니다!
+{1}";
+            const string _onMonsterAttackText =
+@"{0}이(가) 당신에게 {1}만큼 피해를 입혔습니다!";
+            const string _onPlayerDeadText =
+@"당신은 {0}에게 죽었습니다 ㅋㅋ
+당신의 캐릭터가 삭제됩니다.";
+            const string _onMonsterDeadText =
+@"{0}을(를) 처치했습니다!
+{1}Gold와 {2}경험치를 얻었습니다!";
+            const string _onLevelUpText =
+@"레벨업! 현재 레벨: {0}";
         }
     }
 }

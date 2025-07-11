@@ -27,7 +27,6 @@ namespace TextRPG.Managers
             {
                 // 플레이어 위치를 spawn_pos로 설정
                 // TODO: 플레이어 위치 업데이트 (Player 클래스에서 처리)
-                Console.WriteLine($"포탈을 통해 {portalInfo.toMap}으로 이동했습니다! (spawn: {portalInfo.spawnX}, {portalInfo.spawnY})");
                 return true;
             }
 

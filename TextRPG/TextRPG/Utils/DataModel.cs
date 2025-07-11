@@ -79,6 +79,7 @@ namespace TextRPG.Utils
     public struct MonsterData
     {
         public string Name { get; set; }
+        public string NameHide { get; set; }
         public List<string> AttackMsgs { get; set; }
         public int Level { get; set; }
         public int HP { get; set; }
@@ -88,6 +89,10 @@ namespace TextRPG.Utils
         public int Experience { get; set; }
         public int Gold { get; set; }
         public string AsciiPath { get; set; }
+        
+        // UIManager에서 사용하는 AttackPower 프로퍼티 추가
+        [JsonIgnore]
+        public int AttackPower => Power;
         
         // ASCII 아트 데이터 (로드된 후 저장)
         [JsonIgnore]
@@ -108,17 +113,14 @@ namespace TextRPG.Utils
                 if (File.Exists(fullPath))
                 {
                     AsciiArt = File.ReadAllLines(fullPath, Encoding.UTF8).ToList();
-                    Console.WriteLine($"ASCII 아트 로드 완료: {AsciiPath}");
                 }
                 else
                 {
-                    Console.WriteLine($"ASCII 파일을 찾을 수 없습니다: {fullPath}");
                     AsciiArt = new List<string>();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"ASCII 아트 로드 실패 ({AsciiPath}): {ex.Message}");
                 AsciiArt = new List<string>();
             }
         }
@@ -129,7 +131,6 @@ namespace TextRPG.Utils
             if (AsciiArt == null || AsciiArt.Count == 0)
             {
                 Console.SetCursorPosition(startX, startY);
-                Console.WriteLine($"[{Name}]");
                 return;
             }
 

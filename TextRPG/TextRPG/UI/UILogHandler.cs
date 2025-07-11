@@ -46,28 +46,5 @@ namespace TextRPG.UI
                 Manager.UI.DrawInputFrame();
             }
         }
-        
-        // 입력 프레임 그리기 메서드
-        private static void DrawInputFrame(int x, int y, int width, int height)
-        {
-            string topBorder = "┌" + new string('─', width - 2) + "┐";
-            string bottomBorder = "└" + new string('─', width - 2) + "┘";
-            string sideBorder = "│" + new string(' ', width - 2) + "│";
-            
-            // 상단 테두리
-            Console.SetCursorPosition(x, y);
-            Console.Write(topBorder);
-            
-            // 좌우 테두리
-            for (int i = 1; i < height - 1; i++)
-            {
-                Console.SetCursorPosition(x, y + i);
-                Console.Write(sideBorder);
-            }
-            
-            // 하단 테두리
-            Console.SetCursorPosition(x, y + height - 1);
-            Console.Write(bottomBorder);
-        }
     }
 }

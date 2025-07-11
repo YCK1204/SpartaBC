@@ -33,7 +33,7 @@ namespace TextRPG.Managers
             LoadMapInfo();
             LoadAllMaps();
             SpawnMonstersInAllMaps();
-            _currentMap = _loadedMaps["Town"];
+            _currentMap = _loadedMaps["떡잎마을"];
         }
         #region 맵 로드 및 파싱
         private void LoadMapInfo()
@@ -45,16 +45,13 @@ namespace TextRPG.Managers
                 {
                     string jsonContent = File.ReadAllText(mapInfoPath, Encoding.UTF8);
                     _mapInfo = JsonConvert.DeserializeObject<MapInfoRoot>(jsonContent);
-                    Console.WriteLine("Portals.json 로드 완료");
                 }
                 else
                 {
-                    Console.WriteLine("Portals.json 파일을 찾을 수 없습니다.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Portals.json 로드 중 오류 발생: {ex.Message}");
             }
         }
         public void LoadAllMaps()
@@ -64,7 +61,6 @@ namespace TextRPG.Managers
                 // Data/Map 디렉터리가 존재하는지 확인
                 if (!Directory.Exists(_mapDataPath))
                 {
-                    Console.WriteLine($"맵 디렉터리가 존재하지 않습니다: {_mapDataPath}");
                     return;
                 }
 
@@ -73,11 +69,9 @@ namespace TextRPG.Managers
 
                 if (mapFiles.Length == 0)
                 {
-                    Console.WriteLine("맵 파일이 존재하지 않습니다.");
                     return;
                 }
 
-                Console.WriteLine($"맵 파일 로드 중... ({mapFiles.Length}개 파일)");
 
                 int loadedCount = 0;
                 foreach (string mapFilePath in mapFiles)
@@ -96,48 +90,38 @@ namespace TextRPG.Managers
                             SetPortalInfo(mapData, mapName);
                             _loadedMaps[mapName] = mapData;
                             loadedCount++;
-                            Console.WriteLine($"✓ {mapName} 맵 로드 완료");
                         }
                         else
                         {
-                            Console.WriteLine($"✗ {mapName} 맵 로드 실패 (파싱 오류)");
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"✗ {mapName} 맵 로드 실패: {ex.Message}");
                     }
                 }
 
-                Console.WriteLine($"맵 로드 완료: {loadedCount}/{mapFiles.Length}개");
-                Console.WriteLine("로드된 맵 목록:");
                 foreach (var mapName in _loadedMaps.Keys)
                 {
-                    Console.WriteLine($"  - {mapName}");
                 }
 
-                // 기본 맵 설정 (Town이 있으면 기본으로 설정)
-                if (_loadedMaps.ContainsKey("Town"))
+                // 기본 맵 설정 (떡잎마을이 있으면 기본으로 설정)
+                if (_loadedMaps.ContainsKey("떡잎마을"))
                 {
-                    _currentMap = _loadedMaps["Town"];
-                    Console.WriteLine("기본 맵을 'Town'으로 설정했습니다.");
+                    _currentMap = _loadedMaps["떡잎마을"];
                 }
-                else if (_loadedMaps.ContainsKey("town"))
+                else if (_loadedMaps.ContainsKey("떡잎마을"))
                 {
-                    _currentMap = _loadedMaps["town"];
-                    Console.WriteLine("기본 맵을 'town'으로 설정했습니다.");
+                    _currentMap = _loadedMaps["떡잎마을"];
                 }
                 else if (_loadedMaps.Count > 0)
                 {
-                    // town이 없으면 첫 번째 맵을 기본으로 설정
+                    // 떡잎마을이 없으면 첫 번째 맵을 기본으로 설정
                     var firstMap = _loadedMaps.First();
                     _currentMap = firstMap.Value;
-                    Console.WriteLine($"기본 맵을 '{firstMap.Key}'으로 설정했습니다.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"맵 로드 중 오류 발생: {ex.Message}");
             }
         }
 
@@ -150,7 +134,6 @@ namespace TextRPG.Managers
                 return true;
             }
 
-            Console.WriteLine($"맵 '{mapName}'이 로드되지 않았습니다.");
             return false;
         }
 
@@ -175,7 +158,6 @@ namespace TextRPG.Managers
             // 맵이 로드되지 않은 경우
             if (!_loadedMaps.ContainsKey(mapName))
             {
-                Console.WriteLine($"맵 '{mapName}'이 로드되지 않았습니다.");
                 return (-1, -1);
             }
 
@@ -183,10 +165,9 @@ namespace TextRPG.Managers
             var portals = map.PortalTiles;
 
             // to_id는 목적지 맵에서 해당하는 포탈의 배열 인덱스
-            // 즉, Field_001의 to_id 0은 Field_001 포탈 배열의 0번째 포탈
+            // 즉, 도라에몽의 쉼터1의 to_id 0은 도라에몽의 쉼터1 포탈 배열의 0번째 포탈
             if (portalId < 0 || portalId >= portals.Count)
             {
-                Console.WriteLine($"맵 '{mapName}'에서 포탈 ID {portalId}를 찾을 수 없습니다. (총 {portals.Count}개 포탈 존재)");
                 return (-1, -1);
             }
 
@@ -194,7 +175,6 @@ namespace TextRPG.Managers
             var destinationPortal = portals[portalId];
             var (_, _, spawnX, spawnY) = destinationPortal.GetPortalInfo();
             
-            Console.WriteLine($"포탈 이동: {mapName}의 {portalId}번 포탈 spawn_pos = ({spawnX}, {spawnY})");
             return (spawnX, spawnY);
         }
 
@@ -290,7 +270,6 @@ namespace TextRPG.Managers
                 int portalY = portalInfo.pos[1];
 
                 var tile = mapData.GetTile(portalX, portalY);
-                Console.WriteLine($"[DEBUG] {mapName} 포탈 {i}번 검색: JSON pos({portalX},{portalY}) - 타일타입: {tile?.Type}");
                 
                 if (tile?.Type == MapTileType.Portal)
                 {
@@ -305,20 +284,17 @@ namespace TextRPG.Managers
                     // JSON 배열 순서대로 PortalTiles에 추가
                     mapData.PortalTiles.Add(tile);
                     
-                    Console.WriteLine($"✓ {mapName} 포탈 {i}번 설정완료: 위치({portalX},{portalY}) → {portalInfo.to_map} spawn_pos({portalInfo.spawn_pos[0]},{portalInfo.spawn_pos[1]})");
                 }
                 else
                 {
-                    Console.WriteLine($"✗ {mapName} 포탈 {i}번 실패: 위치({portalX},{portalY})에 포탈 타일이 없습니다!");
                 }
             }
             
-            Console.WriteLine($"{mapName} 포탈 설정 완료: {mapData.PortalTiles.Count}개 포탈");
         }
         #endregion
 
         #region 몬스터 스폰 시스템
-        // 모든 맵에 몬스터 스폰 (Town 제외)
+        // 모든 맵에 몬스터 스폰 (떡잎마을 제외)
         private void SpawnMonstersInAllMaps()
         {
             foreach (var kvp in _loadedMaps)
@@ -326,8 +302,8 @@ namespace TextRPG.Managers
                 string mapName = kvp.Key;
                 MapData mapData = kvp.Value;
 
-                // Town은 몬스터 스폰 제외
-                if (mapName.Equals("Town", StringComparison.OrdinalIgnoreCase))
+                // 떡잎마을은 몬스터 스폰 제외
+                if (mapName.Equals("떡잎마을", StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 SpawnMonstersInMap(mapData, mapName);
@@ -337,18 +313,66 @@ namespace TextRPG.Managers
         // 특정 맵에 몬스터 스폰
         private void SpawnMonstersInMap(MapData mapData, string mapName)
         {
-            // 2~3마리 랜덤 생성
-            int monsterCount = _random.Next(2, 4); // 2~3마리
-            
-            Console.WriteLine($"{mapName}에 {monsterCount}마리 몬스터 스폰 시도...");
+            // 맵별로 다른 몬스터 생성 규칙
+            switch (mapName)
+            {
+                case "도라에몽의 쉼터1":
+                    SpawnMonstersByType(mapData, new[] { "Doraemon" }, 4, 7);
+                    break;
+                case "둘리의 팥빵 제작소":
+                    SpawnMonstersByType(mapData, new[] { "Doraemon", "Dooly" }, 3, 5);
+                    break;
+                case "고길동의 수련장":
+                    SpawnFixedMonster(mapData, "GoGildong", 11, 2);
+                    break;
+                case "도라에몽의 쉼터2":
+                    SpawnMonstersByType(mapData, new[] { "Doraemon" }, 5, 8);
+                    break;
+                case "도우너와 둘리의 은밀한 공간":
+                    SpawnField005Monsters(mapData);
+                    break;
+                case "페페의 컴퓨터실":
+                    SpawnMonstersByType(mapData, new[] { "PePe" }, 2, 3);
+                    break;
+                default:
+                    // 기본값 (기존 방식)
+                    SpawnMonstersByType(mapData, new[] { "Dooly" }, 2, 3);
+                    break;
+            }
+        }
 
+        // 특정 위치에 고정 몬스터 스폰
+        private void SpawnFixedMonster(MapData mapData, string monsterType, int x, int y)
+        {
+            var tile = mapData.GetTile(x, y);
+            if (tile != null && tile.Type == MapTileType.Ground)
+            {
+                Monster monster = new Monster(new Position(x, y), monsterType);
+                
+                // 전역 몬스터 딕셔너리에 추가
+                _allMonsters[monster.ID] = monster;
+                
+                // 해당 위치를 몬스터 타일로 설정
+                tile.Type = MapTileType.Monster;
+                tile.SetMonsterInfo(monster.ID);
+                tile.Monster = monster;
+                mapData.MonsterTiles.Add(tile);
+            }
+        }
+
+        // 특정 타입의 몬스터들을 랜덤 생성
+        private void SpawnMonstersByType(MapData mapData, string[] monsterTypes, int minCount, int maxCount)
+        {
+            int monsterCount = _random.Next(minCount, maxCount + 1);
+            
             for (int i = 0; i < monsterCount; i++)
             {
                 Position? spawnPos = FindRandomGroundPosition(mapData);
                 if (spawnPos.HasValue)
                 {
-                    // 몬스터 생성 (모든 몬스터를 "Dooly"로 생성)
-                    Monster monster = new Monster(spawnPos.Value, "Dooly");
+                    // 몬스터 타입 랜덤 선택
+                    string monsterType = monsterTypes[_random.Next(monsterTypes.Length)];
+                    Monster monster = new Monster(spawnPos.Value, monsterType);
                     
                     // 전역 몬스터 딕셔너리에 추가
                     _allMonsters[monster.ID] = monster;
@@ -359,17 +383,61 @@ namespace TextRPG.Managers
                     {
                         tile.Type = MapTileType.Monster;
                         tile.SetMonsterInfo(monster.ID);
+                        tile.Monster = monster;
                         mapData.MonsterTiles.Add(tile);
-                        Console.WriteLine($"✓ {mapName}에 {monster} 스폰: ({spawnPos.Value.X}, {spawnPos.Value.Y})");
                     }
                 }
-                else
+            }
+        }
+
+        // 도우너와 둘리의 은밀한 공간 전용 몬스터 생성 (Dooly가 3마리 이상, Dooly가 더 많아야 함)
+        private void SpawnField005Monsters(MapData mapData)
+        {
+            int totalCount = _random.Next(4, 7); // 4~6마리
+            int dollyCount = Math.Max(3, totalCount - 2); // 최소 3마리, 전체에서 더 많은 비율
+            int dounaCount = totalCount - dollyCount;
+            
+            // Dooly 스폰
+            for (int i = 0; i < dollyCount; i++)
+            {
+                Position? spawnPos = FindRandomGroundPosition(mapData);
+                if (spawnPos.HasValue)
                 {
-                    Console.WriteLine($"✗ {mapName}에서 몬스터 스폰 위치를 찾지 못했습니다.");
+                    Monster monster = new Monster(spawnPos.Value, "Dooly");
+                    
+                    _allMonsters[monster.ID] = monster;
+                    
+                    var tile = mapData.GetTile(spawnPos.Value.X, spawnPos.Value.Y);
+                    if (tile != null)
+                    {
+                        tile.Type = MapTileType.Monster;
+                        tile.SetMonsterInfo(monster.ID);
+                        tile.Monster = monster;
+                        mapData.MonsterTiles.Add(tile);
+                    }
                 }
             }
             
-            Console.WriteLine($"{mapName} 몬스터 스폰 완료: {mapData.MonsterTiles.Count}마리");
+            // Douna 스폰
+            for (int i = 0; i < dounaCount; i++)
+            {
+                Position? spawnPos = FindRandomGroundPosition(mapData);
+                if (spawnPos.HasValue)
+                {
+                    Monster monster = new Monster(spawnPos.Value, "Douna");
+                    
+                    _allMonsters[monster.ID] = monster;
+                    
+                    var tile = mapData.GetTile(spawnPos.Value.X, spawnPos.Value.Y);
+                    if (tile != null)
+                    {
+                        tile.Type = MapTileType.Monster;
+                        tile.SetMonsterInfo(monster.ID);
+                        tile.Monster = monster;
+                        mapData.MonsterTiles.Add(tile);
+                    }
+                }
+            }
         }
 
         // 랜덤한 Ground 위치 찾기
@@ -434,7 +502,6 @@ namespace TextRPG.Managers
                     _currentMap.MonsterTiles.Remove(tile);
                 }
                 
-                Console.WriteLine($"몬스터 {monster.Name} (ID: {monsterId}) 제거됨");
             }
         }
         #endregion
@@ -469,11 +536,9 @@ namespace TextRPG.Managers
         {
             if (_currentMap == null)
             {
-                Console.WriteLine("로드된 맵이 없습니다.");
                 return;
             }
 
-            Console.WriteLine($"=== {_currentMap.MapName} 맵 ===");
 
             for (int y = 0; y < _currentMap.Height; y++)
             {
@@ -484,7 +549,6 @@ namespace TextRPG.Managers
                     if (x == playerX && y == playerY)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write('@');
                         Console.ResetColor();
                     }
                     else if (tile != null)
@@ -511,16 +575,13 @@ namespace TextRPG.Managers
                                 break;
                         }
 
-                        Console.Write(displayChar);
                         Console.ResetColor();
                     }
                     else
                     {
                         // null 타일 (맵 밖 영역)은 공백으로 출력
-                        Console.Write(' ');
                     }
                 }
-                Console.WriteLine();
             }
         }
 
