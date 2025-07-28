@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 650897176c85a0b41b749ba18ebbfb3d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ChatTransform: {instanceID: 0}
+  - ChatBoxPrefab: {fileID: 5170732691637711085, guid: 15dd3b6d750dbd0489d6f7a435ac80f7,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
